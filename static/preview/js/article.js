@@ -3,18 +3,21 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 ];
 var md = new Remarkable();
 
-function getUrlVars() {
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-        vars[key] = value;
-    });
-    return vars;
-}
+var featImageID = ''
+var featuredImage = ''
+var thumbnailImage = ''
+var profilePic = ''
 
-var entryID = getUrlVars()["id"];
-        
 var jsonFile = new XMLHttpRequest();
-var imageFile = new XMLHttpRequest();
+var featImageFile = new XMLHttpRequest();
+var authorFile = new XMLHttpRequest();
+var authorPhoto = new XMLHttpRequest();
+
+// Entry JSON File Request
+jsonFile.open("GET", `https://preview.contentful.com/spaces/${spaceID}/environments/${environment}/entries/${entryID}?access_token=${previewToken}&include=1`, true);
+jsonFile.send();
+
+// Entry JSON File Results
 jsonFile.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         var results = JSON.parse(this.responseText);
@@ -57,9 +60,13 @@ jsonFile.onreadystatechange = function() {
         var resultField = results.fields
         for (let field of Object.keys(results.fields)) {
             if (field == 'featuredImage') {
-                var featImageID = results.fields[field].sys.id
+                featImageID = results.fields[field].sys.id
                 console.log(featImageID)
-                imageFile.open("Get", `https://preview.contentful.com/spaces/` + spaceID + '/environments/master/assets/' + featImageID + `?access_token=` + previewToken, true);
+                loadFeatImage(featImageID)
+            }
+            if (field == 'authorRef') {
+                authorId = results.fields[field].sys.id
+                loadAuthor(authorId)
             }
             if (field == 'tags') {
                 var tags = '';
@@ -74,5 +81,54 @@ jsonFile.onreadystatechange = function() {
     }
 };
 
-jsonFile.open("GET", `https://preview.contentful.com/spaces/${spaceID}/environments/${environment}/entries/${entryID}?access_token=${previewToken}`, true);
-jsonFile.send();
+// Featured Image Request
+featImageFile.addEventListener("load", getImage);
+
+function loadFeatImage(x) {
+    featImageFile.open("Get", `https://preview.contentful.com/spaces/${spaceID}/environments/${environment}/assets/${x}?access_token=${previewToken}`, true )
+    featImageFile.send();
+}
+
+function getImage() {
+    console.log(JSON.parse(this.responseText))
+    var result = JSON.parse(this.responseText)
+    var url = result.fields.file.url
+    featuredImage = url
+    console.log(url)    
+    document.getElementById("featImage").style = `position: relative; background-image:URL( ${url}?w=1600&h=800&q=50&fit=fill ); background-size: cover; background-position: center; background-repeat: no-repeat`
+}
+
+// Author Request 
+authorFile.addEventListener("load", getAuthor);
+
+function loadAuthor(x) {
+    authorFile.open("GET", `https://preview.contentful.com/spaces/${spaceID}/environments/${environment}/entries/${x}?access_token=${previewToken}&include=1`, true);
+    authorFile.send();
+}
+
+function getAuthor() {
+    var result = JSON.parse(this.responseText);
+    console.log(result)
+    document.getElementById("AuthorName").innerHTML = result.fields.title
+    document.getElementById("authorPosition").innerHTML = result.fields.position
+    document.getElementById("authorBio").innerHTML = result.fields.bio
+    document.getElementById("authorFName").innerHTML = result.fields.firstName
+    document.getElementById("authorProfilePic").alt = "photo of " + result.fields.title
+    document.getElementById("authorProfilePic").title = "photo of " + result.fields.title
+    var profileSys = Object.getOwnPropertyDescriptor(result.fields.profilePhoto.sys, "id").value
+    console.log(profileSys)
+    loadAuthorPhoto(profileSys);
+}
+
+authorPhoto.addEventListener("load", getAuthorPhoto);
+
+function loadAuthorPhoto(x) {
+    authorPhoto.open("Get", `https://preview.contentful.com/spaces/${spaceID}/environments/${environment}/assets/${x}?access_token=${previewToken}`, true )
+    authorPhoto.send();
+}
+
+function getAuthorPhoto() {
+    var result = JSON.parse(this.responseText);
+    profilePic = result.fields.file.url
+    document.getElementById("authorProfilePic").src = profilePic + "?w=200&h=200&fit=fill&f=face&r=300&q=80" 
+}

@@ -1,6 +1,7 @@
 {{ define "main" }}
+{{ partial "tabs.html" . }}
 <div id="websiteView" class="pageViewMode active">
-    <div class="blog-single-image-header-top" style="position: relative; background-image:URL( //images.ctfassets.net/vfgh62eq5a4k/3FU9BsWxmUUSKcWEGccyIs/989e1ff9d477ab8db0e8857d8f867e8a/priscilla-du-preez-607204-unsplash__1_.jpg?w=1600&h=800&q=50&fit=fill ); background-size: cover; background-position: center; background-repeat: no-repeat">
+    <div id="featImage" class="blog-single-image-header-top" style="position: relative;">
         <div class="image-overlay blog">
         </div>
         <div class="container" style="z-index: 1">
@@ -8,12 +9,12 @@
                 <div class="blog-archive-link"><a href="#" class="link-3">return to articles</a></div>
                 <h1 id="mainTitle" class="archive-heading">Title Goes Here</h1>
                 <div class="blog-single-meta">by
-                    <a id="authorName" href="#author" style="opacity: 1; font-weight: bold" onclick="return false;" class="link-6">Author Name</a>
+                    <a id="authorName" style="opacity: 1; font-weight: bold" onclick="return false;" class="link-6">Author Name</a>
                     <br/><span id="date">Date Goes Here</span>
                 </div>
                 <div class="tags-and-comments">
                     <div class="div-block-47-copy" id="tagList"></div>
-                    <a href="#comments" style="padding-bottom: 10px; color:white">0 comments</a>
+                    <a style="padding-bottom: 10px; color:white">comments</a>
                 </div>
             </div>
         </div>
@@ -61,19 +62,14 @@
                 <h2 id="author" class="about-author">About the Author</h2>
                 <div class="div-block-53">
                     <div class="author-profile-image">
-                        <img src="//images.ctfassets.net/vfgh62eq5a4k/96QJj81azCMMwMSuSuIEY/cb10e257ae13a038cccff77963a9ac74/IMG_0293_Pastor_Cris_Portrait_at_FFCI.jpg?w=200&h=200&fit=fill&f=face&r=300&q=80"
-                            alt="photo of Cristina Sosso" title="photo of Cristina Sosso" width="200" />
+                        <img id="authorProfilePic" src=""
+                            alt="" title="" width="200" />
                     </div>
                     <div class="author-info">
-                        <h3 class="author-name">Cristina Sosso</h3>
-                        <h5 class="author-profile-position">Executive Vice President &amp; Co-Founder</h5>
-                        <p class="paragraph-4">Cristina Sosso founded Sons of God Ministries International (SOGMI) with her husband
-                            Michael back in 2002. With the inspiration of the Holy Spirit she opened the prophetic and business
-                            schools at SOGMI and spearheaded the start of the &#34;Empower A Leader, Empower A Nation&#34; Conference
-                            which has mentored and trained thousands of ministers and business leaders all over the world. She
-                            also hosts a weekly radio program called &#34;The Prophetic Voice of Our Time&#34; and is presently
-                            the Senior Pastor at Freedom Fellowship Church in San Antonio, Texas.</p>
-                        <a href="/people/cristina-sosso/" class="button-9 w-button">More From Cristina</a>
+                        <h3 class="author-name" id="AuthorName">AuthorName</h3>
+                        <h5 class="author-profile-position" id="authorPosition">Position</h5>
+                        <p class="paragraph-4" id="authorBio">Bio Goes Here</p>
+                        <a class="button-9 w-button">More From <span id="authorFName"></span></a>
                     </div>
                 </div>
             </div>
@@ -205,6 +201,8 @@
         </div>
 </div>
 <div id="socialView" class="pageViewMode"></div>
-<script src="/preview/js/article.js"></script>
+{{ end }}
 
+{{ define "addscripts" }}
+<script src="/preview/js/article.js"></script>
 {{ end }}

@@ -10,12 +10,19 @@
     <link href={{ "css/components.css" | relURL }} rel="stylesheet" type="text/css">
     <link href={{ "css/sons-of-god.css" | relURL }} rel="stylesheet" type="text/css">
     <link href={{ "css/sogmi.css" | relURL }} rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="/css/preview.css">
+    <link rel="stylesheet" href="/preview/css/preview.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
-    <script src="/js/preview.js"></script>
+    <script src="/preview/js/preview.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+    <script>
+        const spaceID = "{{ getenv "CONTENTFUL_SPACE" }}"
+        const previewToken = "{{ getenv "CONTENTFUL_TOKEN" }}"
+        const environment = "master"
+
+        console.log(`Accessing Contentful Space "${spaceID}"\nEnvironment: ${environemnt}\nAccess token: ${previewToken}`)
+    </script>
 </head>
 <body>
     {{ partial "tabs.html" . }}

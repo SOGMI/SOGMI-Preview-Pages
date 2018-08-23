@@ -1,0 +1,4 @@
+baseurl = "www.example.com"
+languageCode = "en-us"
+title = "SOGMI Preview"
+enableRobotsTXT = true

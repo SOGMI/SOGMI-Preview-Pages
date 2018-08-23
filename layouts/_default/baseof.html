@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Preview Environment</title>
+    <link href={{ "css/normalize.css" | relURL }} rel="stylesheet" type="text/css">
+    <link href={{ "css/components.css" | relURL }} rel="stylesheet" type="text/css">
+    <link href={{ "css/sons-of-god.css" | relURL }} rel="stylesheet" type="text/css">
+    <link href={{ "css/sogmi.css" | relURL }} rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/preview.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
+    <script src="/js/preview.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+</head>
+<body>
+    {{ partial "tabs.html" . }}
+    {{ block "main" . }}{{ end }}
+
+</body>
+</html>

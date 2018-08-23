@@ -1,7 +1,7 @@
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
-var md = new Remarkable();
+const md = new Remarkable();
 
 var featImageID = ''
 var featuredImage = ''
@@ -38,43 +38,53 @@ jsonFile.onreadystatechange = function() {
             document.getElementById("seoTitle").innerHTML = seoTitle
         }
 
-        //Render Content
+        //Place Content
         document.getElementById("content").innerHTML = md.render(markdownContent);
+        
+        //place slug in seo view
         document.getElementById("seoUrl").innerHTML = "https://www.sogmi.org/articles/" + results.fields.slug + "/"
         
+        //place description in SEO View
         if (results.fields.description !== undefined ) {
             document.getElementById("seoDescription").innerHTML = results.fields.description
         }
+        // if Description isn't set make description from Content
         else {
             var truncatedContent = removeReturns.substring(0,320)
             document.getElementById("seoDescription").innerHTML = truncatedContent + "..."
             console.log(truncatedContent + "...")
         }
 
+        // get Author Name
         document.getElementById("authorName").innerHTML = results.fields.authors;
+        
+        // get Date
         document.getElementById("date").innerHTML = monthNames[date.getMonth()] + " " + date.getUTCDate() + ", " + date.getFullYear();
+        
+        //get collection
         if (results.fields.collections !== undefined ) {
             document.getElementById("series").style = "display:block";
             document.getElementById("seriesName").innerHTML = results.fields.collections
         };
+        
+        // Object Fields (nested fields)
         var resultField = results.fields
         for (let field of Object.keys(results.fields)) {
             if (field == 'featuredImage') {
                 featImageID = results.fields[field].sys.id
-                console.log(featImageID)
+                // fetch JSON file for Image Asset. See function loadFeatImage() below
                 loadFeatImage(featImageID)
             }
             if (field == 'authorRef') {
                 authorId = results.fields[field].sys.id
+                // fetch JSON file for Author. See function loadAuthor() below
                 loadAuthor(authorId)
             }
             if (field == 'tags') {
                 var tags = '';
-
                 for( i = 0; i < resultField.tags.length; i++) {
                     tags += `<a class="link-block-5 w-inline-block"><div>${resultField.tags[i]}</div></a>`
                 }
-
                 document.getElementById('tagList').innerHTML = tags
             }
         }

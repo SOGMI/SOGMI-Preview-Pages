@@ -1,7 +1,44 @@
 {{ define "main" }}
-<section>
-    <div class="container">
-        <h1>Welcome to the SOGMI Preview Environemnt</h1>
+<section class="homepage">
+    <div class="homepageForm">
+        <h1>Welcome to the SOGMI Preview Environment</h1>
+        <form id="homepageForm" action="" onsubmit="return false" class="flex-form">
+            <label>Select Content Type</label>
+            <div class="radioGroup">
+                {{ range .Data.Pages }}
+                    <input onclick="changeType({{ .Params.Layout }})" type="radio" name="contentType" value="{{ .Params.Layout }}" id="{{ .Params.Layout | urlize }}">    
+                    <label for="{{ .Params.Layout }}">{{ .Params.Layout }}</label>
+                {{ end }}
+            </div>
+                <label for="entryId">Paste the entry ID here:</label>
+                <input id="entryId" required class="textInput w-input" type="text" placeholder="Entry ID">    
+                <input type="submit" class="button w-button" onclick="previewPage()" value="Preview Entry">
+        </form>
     </div>
 </section>
+
+<script>
+
+var contentRadio = document.querySelectorAll(".radioGroup input")
+var contentType
+var entryInput = document.getElementById("entryId");
+var entryId = entryInput
+var form = document.getElementById("homepageForm")
+
+document.addEventListener ("load", changeType())
+
+function changeType() {
+    for(i = 0; i < contentRadio.length; i++) {
+        if(contentRadio[i].checked === true) {
+            contentType = contentRadio[i]
+            console.log(contentType)
+        }
+    }
+}
+
+
+function previewPage() {
+    window.location.href = `/${contentType.value}?id=${entryId.value}`
+}
+</script>
 {{ end }}

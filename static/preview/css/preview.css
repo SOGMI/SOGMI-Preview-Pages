@@ -2,6 +2,81 @@ body {
     padding-top: 100px;
 }
 
+/* homepage form */
+
+section.homepage {
+    background: var(--dark-blue);
+    margin-top: -100px;
+    min-height: 100vh;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    background-image: linear-gradient( 150deg, rgba(22, 22, 22, 0.9), 
+    rgba(34, 34, 34, 0.96)), url(https://images.ctfassets.net/vfgh62eq5a4k/38txgSAVbyqyM4iaIEiu8m/fd0ce8a519c635e7a8559e8ef0467dd2/download__3_.jpg?w=1000&q=50);
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+section.homepage h1 {
+    font-size: 30px;
+    line-height: 40px;
+    margin: 0px 0px 30px 0px;
+    color: var(--highlight)
+}
+
+.homepageForm {
+    max-width: 600px;
+    padding: 20px;
+    margin: auto;
+}
+
+.flex-form .radioGroup {
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.flex-form .radioGroup input {
+    display: none;
+}
+
+.flex-form .radioGroup input + label {
+    background: transparent;
+    border: 1px solid white;
+    opacity: 0.8;
+    padding: 10px 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+.flex-form .radioGroup input:checked + label {
+    background: white;
+    opacity: 1;
+    color: #333333;
+}
+
+.homepageForm input.textInput {
+    background: transparent;
+    padding: 30px;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.homepageForm input.textInput:focus {
+    background: rgba(255, 255, 255, 0.144);
+    color: white;
+}
+
+.homepageForm input[type="submit"] {
+    margin-top: 
+}
+
+/* Navigation tabs */
 #previewNav {
     background: rgb(20, 20, 20);
     color: #ffffff;
@@ -120,4 +195,76 @@ div.pageViewMode.active {
     line-height: 1.4;
     word-wrap: break-word;
     font-size: 16px;
+}
+
+/* FB Preview */
+#socialView {
+    background: #e9ebee;
+    min-height: 100vh;
+    font-family: Helvetica, Arial, sans-serif;
+    padding: 20px 0px;
+}
+
+#socialView a {
+    color: #365899;
+}
+
+.fbcard {
+    background: white;
+    padding: 12px;
+    border: 1px solid #dfdfdf;
+    max-width: 500px;
+    border-radius: 4px;
+}
+
+.fbcard.dark {
+    background: #f5f5f5;
+    color: #373b3f;
+}
+
+.fbDisplayName {
+    display: flex;
+    display: -webkit-flex;
+    align-items: flex-start;
+    margin-bottom: 5px;
+}
+
+.fbDisplayName a {
+    font-weight: bold;
+    padding-left: 5px;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.websiteName {
+    font-size: 12px;
+    line-height: 16px;
+    margin-bottom: 4px;
+}
+
+.ogTitle {
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+.ogDescription {
+    font-size: 12px;
+    line-height: 16px;
+    margin-top:0px;
+}
+
+.fbcardGroup {
+    margin: 10px 0px;
+    opacity: 0.5;
+    filter: grayscale(100);
+    -ms-filter: grayscale(100);
+    -webkit-filter: grayscale(100);
+}
+
+.fbcardGroup.featured {
+    opacity: 1;
+    filter: grayscale(0);
+    -ms-filter: grayscale(0);
+    -webkit-filter: grayscale(0);
 }

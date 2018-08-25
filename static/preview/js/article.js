@@ -28,15 +28,20 @@ jsonFile.onreadystatechange = function() {
         console.log(results)
         
         //Place Title
-        document.getElementById("mainTitle").innerHTML = results.fields.title; 
+        var title = results.fields.title;
         var seoTitle = results.fields.title + " | Sons of God Ministries International";
+
+        document.getElementById("mainTitle").innerHTML = title; 
+
         if (seoTitle.length > 70 ) {
             var seoTitleTruncated = seoTitle.substring(0,70)
             document.getElementById("seoTitle").innerHTML = seoTitleTruncated + "...";
         }
         else {
-            document.getElementById("seoTitle").innerHTML = seoTitle
+            document.getElementById("ogTitle").innerHTML = seoTitle
         }
+
+        document.getElementById("ogTitle").innerHTML = title;
 
         //Place Content
         document.getElementById("content").innerHTML = md.render(markdownContent);
@@ -46,7 +51,9 @@ jsonFile.onreadystatechange = function() {
         
         //place description in SEO View
         if (results.fields.description !== undefined ) {
+            var ogDescription = results.fields.description            
             document.getElementById("seoDescription").innerHTML = results.fields.description
+            document.getElementById("ogDescription").innerHTML = ogDescription.substring(0,155)
         }
         // if Description isn't set make description from Content
         else {
@@ -106,6 +113,8 @@ function getImage() {
     featuredImage = url
     console.log(url)    
     document.getElementById("featImage").style = `position: relative; background-image:URL( ${url}?w=1600&h=800&q=50&fit=fill ); background-size: cover; background-position: center; background-repeat: no-repeat`
+    document.getElementById("ogImage").src = url + "?w=500&h=260&q=60&fit=fill"
+    document.getElementById("ogImage").style = "display: block;"
 }
 
 // Author Request 

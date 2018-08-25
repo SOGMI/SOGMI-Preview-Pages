@@ -214,18 +214,24 @@ div.pageViewMode.active {
     padding: 12px;
     border: 1px solid #dfdfdf;
     max-width: 500px;
-    border-radius: 4px;
+    border-radius: 4px 4px 0px 0px;
 }
 
 .fbcard.dark {
     background: #f5f5f5;
     color: #373b3f;
+    border-radius: 0px 0px 4px 4px;
+}
+
+.ogDescription {
+    font-size: 14px;
+    line-height: 20px;
 }
 
 .fbDisplayName {
-    display: flex;
     display: -webkit-flex;
-    align-items: flex-start;
+    display: flex;
+    align-items: center;
     margin-bottom: 5px;
 }
 
@@ -233,7 +239,8 @@ div.pageViewMode.active {
     font-weight: bold;
     padding-left: 5px;
     font-size: 14px;
-    line-height: 20px;
+    line-height: 16px;
+    margin-bottom: 0px;
 }
 
 .websiteName {
@@ -256,10 +263,10 @@ div.pageViewMode.active {
 
 .fbcardGroup {
     margin: 10px 0px;
-    opacity: 0.5;
-    filter: grayscale(100);
-    -ms-filter: grayscale(100);
-    -webkit-filter: grayscale(100);
+    opacity: 0.8;
+    filter: grayscale(50);
+    -ms-filter: grayscale(50);
+    -webkit-filter: grayscale(50);
 }
 
 .fbcardGroup.featured {
@@ -267,4 +274,15 @@ div.pageViewMode.active {
     filter: grayscale(0);
     -ms-filter: grayscale(0);
     -webkit-filter: grayscale(0);
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.329);
+    display: inline-block;
+    border-radius: 4px;
+}
+
+.fbcardGroup div.fbDisplayName div div {
+    font-size: 12px;
+    opacity: 0.8;
+    line-height: 18px;
+    padding-left: 5px;
+    margin-top: -5px;
 }

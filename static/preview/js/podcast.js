@@ -86,10 +86,7 @@ function getEntry(){
     console.log(seriesID);
     getPodcastSeries(seriesID)
 
-
-    // Place all meta info for SEO and social previews (LAST FUNCTION)
     placeSeoViews();
-
 }
 
 // simple place functions
@@ -141,6 +138,8 @@ function placeFeatImage() {
     console.log(result)
     document.getElementById("mainImage").style = `background-image: URL(${url}?w=800&fit=scale)`
     document.getElementById("playerImage").src = url + "?w=150&h=150&fit=fill&q=85"
+    document.getElementById("ogImage").src = url + "?w=500&h=260&fit=fill&q=60"
+    document.getElementById("ogImage").style = "display:block"
 }
 
 // get podcast series stuffs
@@ -153,15 +152,17 @@ function getPodcastSeries(id) {
 }
 
 function placePodcastSeries() {
+
     var result = JSON.parse(this.responseText);
+    seriesTitle = result.fields.title
     console.log(result)
     // place series title
-    seriesTitle = result.fields.title
     document.getElementById("player-series").innerHTML = seriesTitle
     // get series image
     var albumImage = result.fields.albumImage.sys.id
     var featimage = result.fields.featuredImage.sys.id
     getSeriesImages(albumImage, featimage)
+    placeSeoViews();
 }
 
 var albumImageRequest = new XMLHttpRequest
@@ -191,7 +192,27 @@ function openSeriesFeatured() {
 
 // place SEO stuff
 function placeSeoViews() {
-    document.getElementById("seoTitle").innerHTML = `Episode ${episodeNum}: ${episodeTitle} | ${seriesTitle}`
-    document.getElementById("seoDescription").innerHTML = metaDescription
+    var seoFullTitle = `Episode ${episodeNum}: ${episodeTitle} | ${seriesTitle}`
+    if (seoFullTitle.length > 70) {
+        document.getElementById("seoTitle").innerHTML = seoFullTitle.substring(0,70) + "..."
+    }
+    else {
+        document.getElementById("seoTitle").innerHTML = seoFullTitle
+    }
+    if (metaDescription.length > 320) {
+        document.getElementById("seoDescription").innerHTML = metaDescription.substring(0,320) + "..."
+    }
+    else {
+        document.getElementById("seoDescription").innerHTML = metaDescription
+    }
+    
     document.getElementById("seoUrl").innerHTML = `https://www.sogmi.org/podcasts/${episodeSlug}`
+
+    document.getElementById("ogTitle").innerHTML = seoFullTitle
+    if (metaDescription.length > 300) {
+        document.getElementById("ogDescription").innerHTML = metaDescription.substring(0,300) + "..."
+    }
+    else {
+        document.getElementById("ogDescription").innerHTML = metaDescription
+    }
 }

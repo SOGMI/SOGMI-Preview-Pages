@@ -24,12 +24,13 @@
         console.log(`Accessing Contentful Space "${spaceID}"\nEnvironment: ${environment}\nAccess token: ${previewToken}`)
     </script>
 </head>
-<body>
+<body class="loading">
 
+    {{ partial "loader.html" }}
 
     {{ block "main" . }}{{ end }}
 
-
+    <script src="/preview/js/loader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
     <script src="/preview/js/getid.js"></script>
     <script src="/preview/js/preview.js"></script>

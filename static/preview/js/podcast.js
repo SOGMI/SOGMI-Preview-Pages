@@ -3,6 +3,12 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 ];
 const md = new Remarkable();
 
+var episodeTitle
+var episodeNum
+var seriesTitle
+var metaDescription
+var episodeSlug
+
 var entryFile = new XMLHttpRequest();
 var featImageFile = new XMLHttpRequest();
 var seriesFile = new XMLHttpRequest();
@@ -16,9 +22,16 @@ function getEntry(){
     console.log(result)
     // Entry Title
     var title = result.fields.title
-    var episodeNum = result.fields.episodeNumber
-    placeTitle(title,episodeNum)
-    console.log("episode " + episodeNum + ": " + title)
+    episodeTitle = title
+
+    // episode number
+    var episode = result.fields.episodeNumber
+    episodeNum = episode
+    placeTitle(title,episode)
+    console.log("episode " + episode + ": " + title)
+
+    // Slug
+    episodeSlug = result.fields.slug
 
     // Entry Description
     var description = result.fields.description
@@ -72,6 +85,11 @@ function getEntry(){
     var seriesID = result.fields.podcastSeries.sys.id;
     console.log(seriesID);
     getPodcastSeries(seriesID)
+
+
+    // Place all meta info for SEO and social previews (LAST FUNCTION)
+    placeSeoViews();
+
 }
 
 // simple place functions
@@ -83,6 +101,8 @@ function placeTitle(x, num) {
 
 function placeDescription(x) {
     document.getElementById("mainDescription").innerHTML = md.render(x);
+    metaDescription = x.replace(/(?:\r\n|\r|\n)/g, '')
+    console.log(metaDescription)
 }
 
 function placeAudio(url) {
@@ -135,4 +155,43 @@ function getPodcastSeries(id) {
 function placePodcastSeries() {
     var result = JSON.parse(this.responseText);
     console.log(result)
+    // place series title
+    seriesTitle = result.fields.title
+    document.getElementById("player-series").innerHTML = seriesTitle
+    // get series image
+    var albumImage = result.fields.albumImage.sys.id
+    var featimage = result.fields.featuredImage.sys.id
+    getSeriesImages(albumImage, featimage)
+}
+
+var albumImageRequest = new XMLHttpRequest
+var seriesFeaturedRequest = new XMLHttpRequest
+albumImageRequest.addEventListener("load", openAlbumImage)
+seriesFeaturedRequest.addEventListener("load", openSeriesFeatured)
+
+function getSeriesImages(albumcover, featimage) {
+    albumImageRequest.open("GET", `https://preview.contentful.com/spaces/${spaceID}/environments/${environment}/assets/${albumcover}?access_token=${previewToken}`, true)
+    albumImageRequest.send();
+
+    seriesFeaturedRequest.open("GET", `https://preview.contentful.com/spaces/${spaceID}/environments/${environment}/assets/${featimage}?access_token=${previewToken}`, true)
+    seriesFeaturedRequest.send();
+}
+
+function openAlbumImage() {
+    result = JSON.parse(this.responseText);
+    console.log(result)
+    document.getElementById("mainSeriesImage").src = result.fields.file.url + "?w=340&q=85"
+}
+
+function openSeriesFeatured() {
+    result = JSON.parse(this.responseText);
+    console.log(result)
+    document.getElementById("subscribeModalBackground").style = `background-image: linear-gradient(342deg, #1e4d68, rgba(15, 31, 56, .73)), url(${result.fields.file.url}?w=700&q=50)`
+}
+
+// place SEO stuff
+function placeSeoViews() {
+    document.getElementById("seoTitle").innerHTML = `Episode ${episodeNum}: ${episodeTitle} | ${seriesTitle}`
+    document.getElementById("seoDescription").innerHTML = metaDescription
+    document.getElementById("seoUrl").innerHTML = `https://www.sogmi.org/podcasts/${episodeSlug}`
 }

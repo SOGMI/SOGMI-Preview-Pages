@@ -78,12 +78,10 @@ function getEntry(){
 
     // featured image
     var featImageId = result.fields.featuredImage.sys.id;
-    console.log(featImageId)
     getFeatImage(featImageId)
 
     // Podcast Series / Show
     var seriesID = result.fields.podcastSeries.sys.id;
-    console.log(seriesID);
     getPodcastSeries(seriesID)
 
     placeSeoViews();
@@ -99,7 +97,6 @@ function placeTitle(x, num) {
 function placeDescription(x) {
     document.getElementById("mainDescription").innerHTML = md.render(x);
     metaDescription = x.replace(/(?:\r\n|\r|\n)/g, '')
-    console.log(metaDescription)
 }
 
 function placeAudio(url) {
@@ -135,7 +132,6 @@ function getFeatImage(id) {
 function placeFeatImage() {
     var result = JSON.parse(this.responseText)
     var url = result.fields.file.url
-    console.log(result)
     document.getElementById("mainImage").style = `background-image: URL(${url}?w=800&fit=scale)`
     document.getElementById("playerImage").src = url + "?w=150&h=150&fit=fill&q=85"
     document.getElementById("ogImage").src = url + "?w=500&h=260&fit=fill&q=60"
@@ -155,7 +151,6 @@ function placePodcastSeries() {
 
     var result = JSON.parse(this.responseText);
     seriesTitle = result.fields.title
-    console.log(result)
     // place series title
     document.getElementById("player-series").innerHTML = seriesTitle
     // get series image
@@ -180,13 +175,11 @@ function getSeriesImages(albumcover, featimage) {
 
 function openAlbumImage() {
     result = JSON.parse(this.responseText);
-    console.log(result)
     document.getElementById("mainSeriesImage").src = result.fields.file.url + "?w=340&q=85"
 }
 
 function openSeriesFeatured() {
     result = JSON.parse(this.responseText);
-    console.log(result)
     document.getElementById("subscribeModalBackground").style = `background-image: linear-gradient(342deg, #1e4d68, rgba(15, 31, 56, .73)), url(${result.fields.file.url}?w=700&q=50)`
 }
 

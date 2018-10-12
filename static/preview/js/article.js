@@ -59,7 +59,6 @@ jsonFile.onreadystatechange = function() {
         else {
             var truncatedContent = removeReturns.substring(0,320)
             document.getElementById("seoDescription").innerHTML = truncatedContent + "..."
-            console.log(truncatedContent + "...")
         }
 
         // get Author Name
@@ -107,11 +106,9 @@ function loadFeatImage(x) {
 }
 
 function getImage() {
-    console.log(JSON.parse(this.responseText))
     var result = JSON.parse(this.responseText)
     var url = result.fields.file.url
     featuredImage = url
-    console.log(url)    
     document.getElementById("featImage").style = `position: relative; background-image:URL( ${url}?w=1600&h=800&q=50&fit=fill ); background-size: cover; background-position: center; background-repeat: no-repeat`
     document.getElementById("ogImage").src = url + "?w=500&h=260&q=60&fit=fill"
     document.getElementById("ogImage").style = "display: block;"
@@ -127,7 +124,6 @@ function loadAuthor(x) {
 
 function getAuthor() {
     var result = JSON.parse(this.responseText);
-    console.log(result)
     document.getElementById("AuthorName").innerHTML = result.fields.title
     document.getElementById("authorPosition").innerHTML = result.fields.position
     document.getElementById("authorBio").innerHTML = result.fields.bio
@@ -135,7 +131,6 @@ function getAuthor() {
     document.getElementById("authorProfilePic").alt = "photo of " + result.fields.title
     document.getElementById("authorProfilePic").title = "photo of " + result.fields.title
     var profileSys = Object.getOwnPropertyDescriptor(result.fields.profilePhoto.sys, "id").value
-    console.log(profileSys)
     loadAuthorPhoto(profileSys);
 }
 

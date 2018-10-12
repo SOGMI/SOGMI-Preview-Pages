@@ -24,7 +24,7 @@ jsonFile.onreadystatechange = function() {
         var markdownContent = results.fields.content
         var removePounds = markdownContent.replace('##', '');
         var removeReturns = removePounds.replace(/(?:\r\n|\r|\n)/g, '');
-        var date = new Date(results.fields.date)
+        var pDate = new Date(results.sys.createdAt)
         console.log(results)
         
         //Place Title
@@ -66,7 +66,7 @@ jsonFile.onreadystatechange = function() {
         document.getElementById("authorName").innerHTML = results.fields.authors;
         
         // get Date
-        document.getElementById("date").innerHTML = monthNames[date.getMonth()] + " " + date.getUTCDate() + ", " + date.getFullYear();
+        document.getElementById("date").innerHTML = monthNames[pDate.getMonth()] + " " + pDate.getUTCDate() + ", " + pDate.getFullYear();
         
         //get collection
         if (results.fields.collections !== undefined ) {

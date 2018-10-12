@@ -42,7 +42,7 @@ function getEntry(){
     placeAudio(audio)
 
     // Dates
-    var pDate = new Date(result.fields.date);
+    var pDate = new Date(result.sys.createdAt);
     var aDate = new Date(result.fields.originalAirDate)
     placeDates(pDate, aDate);
 
